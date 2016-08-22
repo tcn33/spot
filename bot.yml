@@ -3,8 +3,8 @@ description: A simple node.js bot
 avatar: avatar.png
 config:
   - name: APIAI_TOKEN
-    friendly_name: API.AI Developer Token
-    info: This is utterly unnecessary
+    friendly_name: API.AI developer token
+    info: This is utterly necessary
     type: secret
     default: NOT A VALID TOKEN
     global: true
