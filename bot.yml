@@ -1,3 +1,10 @@
 name: Easy Peasy Bot
 description: A simple node.js bot
 avatar: avatar.png
+config:
+  - name: APIAI_TOKEN
+    friendly_name: API.AI Developer token
+    info: This is utterly unnecessary
+    type: secret
+    default: NOT A VALID TOKEN
+    global: true
