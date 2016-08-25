@@ -112,6 +112,7 @@ controller.hears(['flights'], 'direct_message', apiai.hears, function (bot, mess
 controller.hears('/(calculate)\s(candidate|client)\s\d{3,5}\s\d{2}/g', ['direct_mention', 'mention', 'direct_message'], function (bot,message) {
   var userID = message.user
   var user = "<@"+userID+">"
+  console.log(message.match[0]);
   if (message.match[2] == 'client') {
     var total = parseInt(message.match[3]);
     var client_rate = (parseInt(message.match[4]) / 100);
