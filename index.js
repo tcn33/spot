@@ -133,6 +133,12 @@ controller.hears(['calculate'], ['direct_mention', 'mention', 'direct_message'],
   }
 });
 
+controller.hears(['Dog'], ['direct_message','mention', 'direct_mention'], apiai.hears, function (bot, message) {
+   if(message.fulfillment.speech !== '') {
+       bot.reply(message, message.fulfillment.speech);
+   } 
+});
+
 /**
  * AN example of what could be:
  * Any un-handled direct mention gets a reaction and a pat response!
