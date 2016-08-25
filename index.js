@@ -122,6 +122,12 @@ controller.hears(['calculate'], ['direct_mention', 'mention', 'direct_message'],
     var gst = (total * 0.1).toFixed(2);
     var margin = (total - tax - day_rate).toFixed(2);
     bot.reply(message, user+"\nThe client is paying: *$"+total+"*, plus *$"+gst+"* GST. :the_horns: \nThis is made up of: \nContractor day rate: *$"+day_rate+"* :tada: \nTax/Insurance: *$"+tax+"* :angry: \nLookahead margin: *$"+margin+"* :moneybag:");
+  } else if (message.entities['keyword'] == 'perm') {
+    var salary = parseInt(message.entities['day_rate']);
+    var client_rate = (parseInt(message.entities['rate']) / 100);
+    var pkg = (total * 1.095).toFixed(2);
+    var fee = (pkg * client_rate).toFixed(2);
+    bot.reply(message, user+"\nThe candidate package is *$"+pkg+"*. :the_horns: \nLookahead fee: *$"+fee+"* :moneybag:");
   } else {
     var day_rate = parseInt(message.entities['day_rate']);
     var client_rate = (parseInt(message.entities['rate']) / 100);
@@ -136,7 +142,7 @@ controller.hears(['calculate'], ['direct_mention', 'mention', 'direct_message'],
 controller.hears(['Dog'], ['direct_message','mention', 'direct_mention'], apiai.hears, function (bot, message) {
    if(message.fulfillment.speech !== '') {
        bot.reply(message, message.fulfillment.speech);
-   } 
+   }
 });
 
 /**
