@@ -109,6 +109,19 @@ controller.hears(['flights'], 'direct_message', apiai.hears, function (bot, mess
    }
 });
 
+controller.hears(['calculate'], ['direct_mention', 'mention', 'direct_message'], apai.hears, function (bot,message) {
+  if(message.fulfillment.speech !== '') {
+    bot.reply(message, message.fulfillment.speech);
+  } else {
+    var day_rate = parseInt(message.entities['day_rate']);
+    var client_rate = parseInt(message.entities['rate']);
+    var total = (day_rate * 1.1 * 1.095) * (1 + (client_rate/100));
+    var tax = (day_rate * 0.1);
+    var gst = (total * 0.1);
+    var margin = (total - tax - day_rate);
+    bot.reply(message, "The client will be charged: *$"+total+"*, plus *$"+gst+"* GST. :the_horns: <br/>Tax/Insurance: *$"+tax+"* :angry: <br/>Lookahead earn: *$"+margin+"* :moneybag:");
+  }
+})
 /**
  * AN example of what could be:
  * Any un-handled direct mention gets a reaction and a pat response!
