@@ -125,7 +125,7 @@ controller.hears(['calculate'], ['direct_mention', 'mention', 'direct_message'],
   } else if (message.entities['keyword'] == 'perm') {
     var salary = parseInt(message.entities['day_rate']);
     var client_rate = (parseInt(message.entities['rate']) / 100);
-    var pkg = (total * 1.095).toFixed(2);
+    var pkg = (salary * 1.095).toFixed(2);
     var fee = (pkg * client_rate).toFixed(2);
     bot.reply(message, user+"\nThe candidate package is *$"+pkg+"*. :the_horns: \nLookahead fee: *$"+fee+"* :moneybag:");
   } else {
