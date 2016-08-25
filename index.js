@@ -109,19 +109,52 @@ controller.hears(['flights'], 'direct_message', apiai.hears, function (bot, mess
    }
 });
 
-controller.hears(['calculate'], ['direct_mention', 'mention', 'direct_message'], apai.hears, function (bot,message) {
-  if(message.fulfillment.speech !== '') {
-    bot.reply(message, message.fulfillment.speech);
-  } else {
-    var day_rate = parseInt(message.entities['day_rate']);
-    var client_rate = parseInt(message.entities['rate']);
-    var total = (day_rate * 1.1 * 1.095) * (1 + (client_rate/100));
-    var tax = (day_rate * 0.1);
-    var gst = (total * 0.1);
-    var margin = (total - tax - day_rate);
-    bot.reply(message, "The client will be charged: *$"+total+"*, plus *$"+gst+"* GST. :the_horns: <br/>Tax/Insurance: *$"+tax+"* :angry: <br/>Lookahead earn: *$"+margin+"* :moneybag:");
+controller.hears('/(calculate)\s(candidate|client)\s\d{3,5}\s\d{2}/g', ['direct_mention', 'mention', 'direct_message'], function (bot,message) {
+  var userID = message.user
+  var user = "<@"+userID+">"
+  if (message.match[2] == 'client') {
+    var total = parseInt(message.match[3]);
+    var client_rate = (parseInt(message.match[4]) / 100);
+    var day_rate = (total / (1.1 + client_rate)).toFixed(2);
+    var tax = (day_rate * 0.1).toFixed(2);
+    var gst = (total * 0.1).toFixed(2);
+    var margin = (total - tax - day_rate).toFixed(2);
+    bot.reply(message, "The client is paying: *$"+total+"*, plus *$"+gst+"* GST. :the_horns: \nThis is made up of: \nContractor day rate: *$"+day_rate+"* :tada: \nTax/Insurance: *$"+tax+"* :angry: \nLookahead margin: *$"+margin+"* :moneybag:");
+  } else if (message.match[2] == 'candidate') {
+    var day_rate = parseInt(message.match[3]);
+    var client_rate = (parseInt(message.match[4]) / 100);
+    var total = (day_rate * (1.1 + client_rate)).toFixed(2);
+    var tax = (day_rate * 0.1).toFixed(2);
+    var gst = (total * 0.1).toFixed(2);
+    var margin = (total - tax - day_rate).toFixed(2);
+    bot.reply(message, user+", \nThe client will be charged: *$"+total+"*, plus *$"+gst+"* GST. :the_horns: \nTax/Insurance: *$"+tax+"* :angry: \nLookahead earn: *$"+margin+"* :moneybag:");
   }
 })
+
+/*controller.hears(['calculate'], ['direct_mention', 'mention', 'direct_message'], apiai.hears, function (bot,message) {
+  var userID = message.user
+  var user = "<@"+userID+">"
+  if(message.fulfillment.speech !== '') {
+    bot.reply(message, message.fulfillment.speech);
+  } else if (message.entities['keyword'] == 'client') {
+    var total = parseInt(message.entities['day_rate']);
+    var client_rate = (parseInt(message.entities['rate']) / 100);
+    var day_rate = (total / (1.1 + client_rate)).toFixed(2);
+    var tax = (day_rate * 0.1).toFixed(2);
+    var gst = (total * 0.1).toFixed(2);
+    var margin = (total - tax - day_rate).toFixed(2);
+    bot.reply(message, "The client is paying: *$"+total+"*, plus *$"+gst+"* GST. :the_horns: \nThis is made up of: \nContractor day rate: *$"+day_rate+"* :tada: \nTax/Insurance: *$"+tax+"* :angry: \nLookahead margin: *$"+margin+"* :moneybag:");
+  } else {
+    var day_rate = parseInt(message.entities['day_rate']);
+    var client_rate = (parseInt(message.entities['rate']) / 100);
+    var total = (day_rate * (1.1 + client_rate)).toFixed(2);
+    var tax = (day_rate * 0.1).toFixed(2);
+    var gst = (total * 0.1).toFixed(2);
+    var margin = (total - tax - day_rate).toFixed(2);
+    bot.reply(message, user+", \nThe client will be charged: *$"+total+"*, plus *$"+gst+"* GST. :the_horns: \nTax/Insurance: *$"+tax+"* :angry: \nLookahead earn: *$"+margin+"* :moneybag:");
+  }
+})*/
+
 /**
  * AN example of what could be:
  * Any un-handled direct mention gets a reaction and a pat response!
