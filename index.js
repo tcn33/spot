@@ -1,5 +1,5 @@
 /**
- * A Bot for Slack!
+ * A Spot for Slack!
  */
 
 
