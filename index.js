@@ -93,6 +93,14 @@ controller.on('bot_channel_join', function (bot, message) {
     bot.reply(message, 'Hello!');
 });*/
 
+controller.hears(['help'], ['direct_message','direct_mention','mention'], function (bot, message) {
+   bot.reply(message, 'Here are some things you can ask me: \ncalculate candidate 1000 20: outputs the cost to the client and Lookahead\'s margin \ncalculate client 1300 20: reverses the prior calculation and gives you the day rate and margin \n calculate perm 100000 20: gives you the package total and placement fee \n');
+});
+
+controller.hears(['fetch'], ['direct_message','direct_mention','mention'], function (bot, message) {
+   bot.reply(message, 'Stop trying to make fetch happen. It\'s never going to happen.');
+});
+
 controller.hears(['hello'], 'direct_message', apiai.hears, function (bot, message) {
    bot.reply(message, 'Hello!');
 });
@@ -143,10 +151,6 @@ controller.hears(['Dog'], ['direct_message','mention', 'direct_mention'], apiai.
    if(message.fulfillment.speech !== '') {
        bot.reply(message, message.fulfillment.speech);
    }
-});
-
-controller.hears(['help'], ['direct_message','direct_mention','mention'], function (bot, message) {
-   bot.reply(message, 'Here are some things you can ask me: \ncalculate candidate 1000 20: outputs the cost to the client and Lookahead\'s margin \ncalculate client 1300 20: reverses the prior calculation and gives you the day rate and margin \n calculate perm 100000 20: gives you the package total and placement fee \n');
 });
 
 /**
