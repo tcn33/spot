@@ -109,13 +109,13 @@ controller.hears(['goodbye'], 'direct_message', apiai.hears, function (bot, mess
    bot.reply(message, 'See you later alligator!');
 });
 
-controller.hears(['flights'], 'direct_message', apiai.hears, function (bot, message) {
+/*controller.hears(['flights'], 'direct_message', apiai.hears, function (bot, message) {
    if(message.fulfillment.speech !== '') {
        bot.reply(message, message.fulfillment.speech);
    } else {
        bot.reply(message, "You requested to fly to " + message.entities['geo-city'] + " on " + message.entities['date']+".");
    }
-});
+});*/
 
 controller.hears(['calculate'], ['direct_mention', 'mention', 'direct_message'], apiai.hears, function (bot,message) {
   var userID = message.user
