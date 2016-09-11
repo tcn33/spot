@@ -1,5 +1,5 @@
-name: Easy Peasy Bot
-description: A simple node.js bot
+name: Spot
+description: Lookahead\'s simple node.js bot
 avatar: avatar.png
 config:
   - name: APIAI_TOKEN
