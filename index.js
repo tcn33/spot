@@ -94,6 +94,9 @@ controller.on('bot_channel_join', function (bot, message) {
 });*/
 
 controller.hears(['help'], ['direct_message','direct_mention','mention'], function (bot, message) {
+   if (!sessionIds.has(senderID)) {
+     sessionIds.set(senderID, uuid.v1());
+   }
    bot.reply(message, 'Here are some things you can ask me: \ncalculate candidate 1000 20: outputs the cost to the client and Lookahead\'s margin \ncalculate client 1300 20: reverses the prior calculation and gives you the day rate and margin \n calculate perm 100000 20: gives you the package total and placement fee \n');
 });
 
